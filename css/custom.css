@@ -2,18 +2,13 @@
 	display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 #wc-expinet-cc-form .expinet-col-6{
-	-webkit-box-flex: 0;
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
+	flex: 1;
 }
 #wc-expinet-cc-form .help_info {
     font-size: 12px;
-/*     text-decoration: underline; */
     text-align: right;
     cursor: default;
     display: inline-block;
@@ -29,7 +24,6 @@
     position: absolute;
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
-    /* right: 10px; */
     left: -10px;
     color: #fff;
     font-size: 13px;
@@ -45,7 +39,6 @@
     height: 0;
     border: 6px solid transparent;
     border-bottom-color: #3293af;
-    /* right: 10px; */
     top: -12px;
     left: 10px;
 }
@@ -88,6 +81,7 @@
     padding: 0 10px 0 20px;
     width: 100%;
     font-weight: 400;
+    box-sizing: border-box;
 }
 @media only screen and (max-width: 767px) {
    

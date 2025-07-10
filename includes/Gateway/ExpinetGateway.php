@@ -201,18 +201,21 @@ class ExpinetGateway extends \WC_Payment_Gateway {
         
         ?>
     
-        <fieldset id="wc-<?php echo esc_attr( $this->id ); ?>-cc-form" class="wc-credit-card-form wc-payment-form" style="background:transparent;">
-    
+        <fieldset id="wc-<?php echo esc_attr( $this->id ); ?>-cc-form" class="wc-credit-card-form wc-payment-form" style="background: transparent;">
+
             <?php do_action( 'woocommerce_credit_card_form_start', $this->id ); ?>
 
+            <!-- Card Number -->
             <div class="form-row form-row-wide validate-required">
-                <label><?php esc_html_e( 'Card Number', 'epg' ); ?> <span class="required">*</span></label>
+                <label for="card_number">
+                    <?php esc_html_e( 'Card Number', 'epg' ); ?> <span class="required">*</span>
+                </label>
                 <input 
                     id="card_number" 
                     type="text" 
                     name="card_number" 
                     placeholder="<?php esc_attr_e( 'Enter credit card number', 'epg' ); ?>" 
-                    autocomplete="off" 
+                    autocomplete="off"
                 />
                 <div class="form-control1 card_thumbs pl-3">
                     <img alt="Visa" data-type="visa" src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/visa.png' ); ?>" />
@@ -222,46 +225,54 @@ class ExpinetGateway extends \WC_Payment_Gateway {
                 </div>
             </div>
 
+            <!-- Expiry & CVV -->
             <div class="expinet-row form-row form-row-wide validate-required pd-0">
                 <div class="expinet-col-6">
-                    <label><?php esc_html_e( 'Expiry Date', 'epg' ); ?> <span class="required">*</span></label>
+                    <label for="expiry_date">
+                        <?php esc_html_e( 'Expiry Date', 'epg' ); ?> <span class="required">*</span>
+                    </label>
                     <input 
                         id="expiry_date" 
                         type="text" 
                         name="expiry_date" 
                         placeholder="<?php esc_attr_e( 'MM/YY', 'epg' ); ?>" 
                         autocomplete="off" 
-                        maxlength="5" 
+                        maxlength="5"
                     />
                 </div>
+
                 <div class="expinet-col-6">
-                    <label>
-                        <?php esc_html_e( 'Secure Code (cvv)', 'epg' ); ?> 
-                        <span class="help_info">
+                    <label for="ccv">
+                        <?php esc_html_e( 'Secure Code (cvv)', 'epg' ); ?> <span class="required">*</span>
+                        <span class="help_info" tabindex="0" role="tooltip">
                             <img src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/question-icons.png' ); ?>" alt="Help" />
                             <p>
                                 <?php esc_html_e( 'The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code. Providing your CVV number to an online merchant proves that you actually have the physical credit or debit card - and helps to keep you safe while reducing fraud.', 'epg' ); ?>
                             </p>
                         </span>
-                        <span class="required">*</span>
                     </label>
                     <input 
+                        id="ccv" 
                         class="form-control" 
                         name="ccv" 
                         placeholder="<?php esc_attr_e( '000/0000', 'epg' ); ?>" 
                         type="text" 
-                        maxlength="4" 
+                        maxlength="4"
                     />
                 </div>
             </div>
 
+            <!-- Card Name -->
             <div class="form-row form-row-wide validate-required">
-                <label for="cardName"><?php esc_html_e( 'Name on card', 'woocommerce' ); ?> <span class="required">*</span></label>
+                <label for="cardName">
+                    <?php esc_html_e( 'Name on card', 'epg' ); ?> <span class="required">*</span>
+                </label>
                 <input 
+                    id="cardName"
                     name="cardName" 
-                    placeholder="<?php esc_attr_e( 'Name on card', 'woocommerce' ); ?>" 
+                    placeholder="<?php esc_attr_e( 'Name on card', 'epg' ); ?>" 
                     type="text" 
-                    required 
+                    required
                 />
             </div>
 
