@@ -9,8 +9,8 @@ class Expinent_Payment_Log extends WP_List_Table {
 	public function __construct() {
 		parent::__construct(
 			[
-				'singular' => __( 'Expinent Payment Log', 'epg' ), // Singular name of listed records
-				'plural'   => __( 'Expinent Payment Logs', 'epg' ), // Plural name of listed records
+				'singular' => __( 'Expinent Payment Log', 'expinet-payment-gateway' ), // Singular name of listed records
+				'plural'   => __( 'Expinent Payment Logs', 'expinet-payment-gateway' ), // Plural name of listed records
 				'ajax'     => false, // Does this table support AJAX?
 			]
 		);
@@ -27,25 +27,58 @@ class Expinent_Payment_Log extends WP_List_Table {
 	public static function get_expinent_data( $per_page = 5, $page_number = 1 ) {
 		global $wpdb;
 
-		$sql = "SELECT * FROM {$wpdb->prefix}expinent_api_data";
+		$table_name = $wpdb->prefix . 'expinent_api_data';
+		$where_sql  = 'WHERE 1=1';
+		$params     = [];
 
-		if ( ! empty( $_REQUEST['s'] ) ) {
-			$search = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
-			$sql .= $wpdb->prepare( ' WHERE order_id LIKE %s', '%' . $wpdb->esc_like( $search ) . '%' );
+		// Search filter
+		if ( isset( $_REQUEST['expinent_search_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['expinent_search_nonce'] ) ), 'expinent_payment_log_search' ) ){
+			$search = '';
+			if ( isset( $_REQUEST['s'] ) ) {
+				$search = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
+			}
+			$where_sql .= ' AND order_id LIKE %s';
+			$params[]   = '%' . $wpdb->esc_like( $search ) . '%';
 		}
 
+		// Whitelist orderby and order
+		$allowed_orderby = [ 'order_id', 'api_date' ];
+		$order_by        = 'api_date';
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$order_by = esc_sql( wp_unslash( $_REQUEST['orderby'] ) );
-			$order    = ! empty( $_REQUEST['order'] ) ? esc_sql( wp_unslash( $_REQUEST['order'] ) ) : 'ASC';
-			$sql     .= " ORDER BY $order_by $order";
-		} else {
-			$sql .= ' ORDER BY api_date DESC';
+			$orderby_input = sanitize_key( wp_unslash( $_REQUEST['orderby'] ) );
+			if ( in_array( $orderby_input, $allowed_orderby, true ) ) {
+				$order_by = $orderby_input;
+			}
 		}
 
-		$offset = ( $page_number - 1 ) * $per_page;
-		$sql   .= $wpdb->prepare( ' LIMIT %d OFFSET %d', $per_page, $offset );
+		$order = 'DESC';
+		if ( ! empty( $_REQUEST['order'] ) ) {
+			if ( isset( $_REQUEST['order'] ) ) {
+				$order_value = strtolower( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) );
+			}
+			if ( in_array( $order_input, [ 'asc', 'desc' ], true ) ) {
+				$order = strtoupper( $order_input );
+			}
+		}
 
-		return $wpdb->get_results( $sql, ARRAY_A );
+		// Pagination
+		$offset = ( $page_number - 1 ) * $per_page;
+		$params[] = (int) $per_page;
+		$params[] = (int) $offset;
+
+		// Final query string
+		$sql = "
+			SELECT *
+			FROM {$table_name}
+			{$where_sql}
+			ORDER BY {$order_by} {$order}
+			LIMIT %d OFFSET %d
+		";
+
+		// Return the result directly from prepare()
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A ); 
 	}
 
 	/**
@@ -55,7 +88,7 @@ class Expinent_Payment_Log extends WP_List_Table {
 	 */
 	public static function delete_expinent( $id ) {
 		global $wpdb;
-
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->delete(
 			"{$wpdb->prefix}expinent_api_data",
 			[ 'id' => absint( $id ) ],
@@ -71,15 +104,19 @@ class Expinent_Payment_Log extends WP_List_Table {
 	public static function record_count() {
 		global $wpdb;
 
-		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}expinent_api_data";
+		$table = esc_sql( $wpdb->prefix . 'expinent_api_data' );
 
-		return $wpdb->get_var( $sql );
+		$sql = "SELECT COUNT(*) FROM {$table}";// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- No user input used; table name safely escaped.
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_var( $sql ); 
 	}
 
 
 	/** Text displayed when no expinent data is available */
 	public function no_items() {
-		_e( 'No expinent payment avaliable.', 'epg' );
+		 esc_html_e( 'No expinent payment available.', 'expinet-payment-gateway' );
 	}
 
 
@@ -95,12 +132,20 @@ class Expinent_Payment_Log extends WP_List_Table {
 		switch ( $column_name ) {
 			case 'order_id':
             case 'api_date':
-                return $item[ $column_name ];
+                return esc_html( $item[ $column_name ] );
 			case 'api_request':
             case 'api_response' :
-                return print_r( unserialize($item[ $column_name ]), true );
+                $value = maybe_unserialize( $item[ $column_name ] );
+				if ( is_array( $value ) || is_object( $value ) ) {
+					// Convert to readable JSON format for safe display
+					$output = wp_json_encode( $value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+				} else {
+					$output = $value;
+				}
+				return '<pre>' . esc_html( $output ) . '</pre>';
 			default:
-				return print_r( $item, true ); //Show the whole array for troubleshooting purposes
+				$output = wp_json_encode( $item, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+            	return '<pre>' . esc_html( $output ) . '</pre>';
 		}
 	}
 
@@ -126,16 +171,28 @@ class Expinent_Payment_Log extends WP_List_Table {
 	 * @return string
 	 */
 	function column_name( $item ) {
-
 		$delete_nonce = wp_create_nonce( 'sp_delete_expinent' );
 
-		$title = '<strong>' . $item['name'] . '</strong>';
+		$title = '<strong>' . esc_html( $item['name'] ) . '</strong>';
 
-		$actions = [
-			'delete' => sprintf( '<a href="?page=%s&action=%s&expinent=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
-		];
+		$page = '';
+		if ( isset( $_REQUEST['expinent_search_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['expinent_search_nonce'] ) ), 'expinent_payment_log_search' ) ){
+			if ( isset( $_REQUEST['page'] ) ) {
+				$page = sanitize_text_field( wp_unslash( $_REQUEST['page'] ) );
+			}
 
-		return $title . $this->row_actions( $actions );
+			$actions = [
+				'delete' => sprintf(
+					'<a href="?page=%s&action=%s&expinent=%s&_wpnonce=%s">Delete</a>',
+					esc_attr( $page ),
+					'delete',
+					absint( $item['id'] ),
+					esc_attr( $delete_nonce )
+				)
+			];
+
+			return $title . $this->row_actions( $actions );
+		}
 	}
 
 
@@ -147,10 +204,10 @@ class Expinent_Payment_Log extends WP_List_Table {
 	public function get_columns() {
 		$columns = [
 			'cb'           => '<input type="checkbox" />',
-			'api_date'     => __( 'Date', 'epg' ),
-			'order_id'     => __( 'Order ID', 'epg' ),
-			'api_request'  => __( 'Request', 'epg' ),
-			'api_response' => __( 'Response', 'epg' ),
+			'api_date'     => __( 'Date', 'expinet-payment-gateway' ),
+			'order_id'     => __( 'Order ID', 'expinet-payment-gateway' ),
+			'api_request'  => __( 'Request', 'expinet-payment-gateway' ),
+			'api_response' => __( 'Response', 'expinet-payment-gateway' ),
 		];
 
 		return $columns;
@@ -188,6 +245,12 @@ class Expinent_Payment_Log extends WP_List_Table {
 	 */
 
 	public function search_box( $text, $input_id ) {
+		if ( ! isset( $_REQUEST['expinent_search_nonce'] ) || 
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['expinent_search_nonce'] ) ), 'expinent_payment_log_search' ) ) {
+			// Nonce is missing or invalid, so stop processing
+			return;
+		}
+
 		if ( empty( $_REQUEST['s'] ) && ! $this->has_items() ) {
             return;
         }
@@ -195,21 +258,24 @@ class Expinent_Payment_Log extends WP_List_Table {
         $input_id = $input_id . '-search-input';
  
         if ( ! empty( $_REQUEST['orderby'] ) ) {
-            echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+			echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) ) . '" />';
         }
         if ( ! empty( $_REQUEST['order'] ) ) {
-            echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+            echo '<input type="hidden" name="order" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['order']) ) ) . '" />';
         }
         if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '" />';
+            echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['post_mime_type'] ) ) ) . '" />';
         }
         if ( ! empty( $_REQUEST['detached'] ) ) {
-            echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '" />';
+            echo '<input type="hidden" name="detached" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['detached'] ) ) ) . '" />';
         }
         ?>
 		<p class="search-box">
-			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo $text; ?>:</label>
+			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>">
+				<?php echo esc_html( $text ); ?>:
+			</label>
 			<input type="search" placeholder="Order/SO Number" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>" />
+			 <?php wp_nonce_field( 'expinent_payment_log_search', 'expinent_search_nonce' ); ?>
 				<?php submit_button( $text, '', '', false, array( 'id' => 'search-submit' ) ); ?>
 		</p>
         <?php
@@ -243,25 +309,31 @@ class Expinent_Payment_Log extends WP_List_Table {
 		if ( 'delete' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
 
-			if ( ! wp_verify_nonce( $nonce, 'sp_delete_expinent' ) ) {
+			if ( ! isset( $_REQUEST['_wpnonce'] ) || 
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'sp_delete_expinent' ) ) {
 				die( 'Go get a life script kiddies' );
 			}
 			else {
-				self::delete_expinent( absint( $_GET['expinent'] ) );
-		                wp_redirect( esc_url_raw(add_query_arg()) );
-				exit;
+				if ( isset( $_GET['expinent'] ) && ! empty( $_GET['expinent'] ) ) {
+					self::delete_expinent( absint( $_GET['expinent'] ) );
+							wp_redirect( esc_url_raw(add_query_arg()) );
+					exit;
+				}
 			}
 
 		}
 
 		// If the delete bulk action is triggered
+		$delete_ids = [];
 		if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-delete' )
 		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )
 		) {
-
-			$delete_ids = esc_sql( $_POST['bulk-delete'] );
+			if ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) {
+				$raw_ids = array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['bulk-delete'] ) );
+				$delete_ids = array_map( 'absint', $raw_ids );
+				$delete_ids = array_filter( $delete_ids ); // Remove any zero values
+			}
 
 			// loop over the array of record IDs and delete them
 			foreach ( $delete_ids as $id ) {

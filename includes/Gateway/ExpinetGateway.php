@@ -16,8 +16,8 @@ class ExpinetGateway extends \WC_Payment_Gateway {
     public function __construct() {
         $this->id                 = 'expinet';
         $this->icon               = ''; // Optional: URL to payment method icon
-        $this->method_title       = __( 'Expinet Payment', 'epg' );
-        $this->method_description = __( 'Secure credit card payments via Expinet API.', 'epg' );
+        $this->method_title       = __( 'Expinet Payment', 'expinet-payment-gateway' );
+        $this->method_description = __( 'Secure credit card payments via Expinet API.', 'expinet-payment-gateway' );
         $this->has_fields         = true;
 
         $enable_order_refund = get_option( 'enable_order_refund' );
@@ -67,81 +67,81 @@ class ExpinetGateway extends \WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title'       => __( 'Enable/Disable', 'epg' ),
-                'label'       => __( 'Enable Expinet Gateway', 'epg' ),
+                'title'       => __( 'Enable/Disable', 'expinet-payment-gateway' ),
+                'label'       => __( 'Enable Expinet Gateway', 'expinet-payment-gateway' ),
                 'type'        => 'checkbox',
-                'description' => __( 'Enable the Expinet gateway to accept payments via credit card.', 'epg' ),
+                'description' => __( 'Enable the Expinet gateway to accept payments via credit card.', 'expinet-payment-gateway' ),
                 'default'     => 'no',
                 'desc_tip'    => true,
             ),
             'enabled_hold' => array(
-                'title'       => __( 'Enable Payment Hold', 'epg' ),
-                'label'       => __( 'Allow payment to be placed on hold.', 'epg' ),
+                'title'       => __( 'Enable Payment Hold', 'expinet-payment-gateway' ),
+                'label'       => __( 'Allow payment to be placed on hold.', 'expinet-payment-gateway' ),
                 'type'        => 'checkbox',
-                'description' => __( 'Enable this option to authorize credit card payments without capturing them immediately.', 'epg' ),
+                'description' => __( 'Enable this option to authorize credit card payments without capturing them immediately.', 'expinet-payment-gateway' ),
                 'default'     => 'no',
                 'desc_tip'    => true,
             ),
             'title' => array(
-                'title'       => __( 'Title', 'epg' ),
+                'title'       => __( 'Title', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Controls the payment method title shown to customers during checkout.', 'epg' ),
-                'default'     => __( 'Credit Card', 'epg' ),
+                'description' => __( 'Controls the payment method title shown to customers during checkout.', 'expinet-payment-gateway' ),
+                'default'     => __( 'Credit Card', 'expinet-payment-gateway' ),
                 'desc_tip'    => true,
             ),
             'description' => array(
-                'title'       => __( 'Description', 'epg' ),
+                'title'       => __( 'Description', 'expinet-payment-gateway' ),
                 'type'        => 'textarea',
-                'description' => __( 'Controls the payment method description shown to customers during checkout.', 'epg' ),
-                'default'     => __( 'Pay securely using your credit card via Expinet payment gateway.', 'epg' ),
+                'description' => __( 'Controls the payment method description shown to customers during checkout.', 'expinet-payment-gateway' ),
+                'default'     => __( 'Pay securely using your credit card via Expinet payment gateway.', 'expinet-payment-gateway' ),
                 'desc_tip'    => true,
             ),
             'expinet_domain' => array(
-                'title'       => __( 'Expinet Domain', 'epg' ),
+                'title'       => __( 'Expinet Domain', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'The base domain URL for Expinet API requests.', 'epg' ),
+                'description' => __( 'The base domain URL for Expinet API requests.', 'expinet-payment-gateway' ),
                 'default'     => 'https://api.sandbox.expinet.net',
                 'desc_tip'    => true,
             ),
             'expinet_location_id' => array(
-                'title'       => __( 'Location/Merchant ID', 'epg' ),
+                'title'       => __( 'Location/Merchant ID', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet location or merchant ID.', 'epg' ),
+                'description' => __( 'Your Expinet location or merchant ID.', 'expinet-payment-gateway' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_developer_id' => array(
-                'title'       => __( 'Developer ID', 'epg' ),
+                'title'       => __( 'Developer ID', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet developer ID.', 'epg' ),
+                'description' => __( 'Your Expinet developer ID.', 'expinet-payment-gateway' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_service_id' => array(
-                'title'       => __( 'Service ID', 'epg' ),
+                'title'       => __( 'Service ID', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet service ID.', 'epg' ),
+                'description' => __( 'Your Expinet service ID.', 'expinet-payment-gateway' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_user_id' => array(
-                'title'       => __( 'User ID', 'epg' ),
+                'title'       => __( 'User ID', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet user ID.', 'epg' ),
+                'description' => __( 'Your Expinet user ID.', 'expinet-payment-gateway' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_user_api_key' => array(
-                'title'       => __( 'API Key', 'epg' ),
+                'title'       => __( 'API Key', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet API key for authentication.', 'epg' ),
+                'description' => __( 'Your Expinet API key for authentication.', 'expinet-payment-gateway' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_user_hash_key' => array(
-                'title'       => __( 'User Hash Key', 'epg' ),
+                'title'       => __( 'User Hash Key', 'expinet-payment-gateway' ),
                 'type'        => 'text',
-                'description' => __( 'Hash key used for verifying Expinet API requests.', 'epg' ),
+                'description' => __( 'Hash key used for verifying Expinet API requests.', 'expinet-payment-gateway' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
@@ -154,7 +154,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
     public function payment_gateway_scripts() {
 
         // Load only on cart, checkout, or pay_for_order pages
-        if ( ! is_cart() && ! is_checkout() && ! isset( $_GET['pay_for_order'] ) ) {
+        if ( ! is_cart() && ! is_checkout() && ! isset( $_GET['pay_for_order'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             return;
         }
 
@@ -165,7 +165,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
 
         // Enqueue custom stylesheet
         wp_enqueue_style(
-            'epg-custom',
+            'expinet-payment-gateway-custom',
             EPG_PLUGIN_URL . 'css/custom.css',
             array(), // Dependencies
             EPG_PLUGIN_VERSION,
@@ -173,7 +173,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
 
         // Enqueue custom JS
         wp_enqueue_script(
-            'epg-custom-js',
+            'expinet-payment-gateway-custom-js',
             EPG_PLUGIN_URL . 'js/custom.js',
             array( 'jquery' ),
             EPG_PLUGIN_VERSION,
@@ -182,7 +182,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
 
         // Enqueue Cleave.js 
         wp_enqueue_script(
-            'epg-cleave',
+            'expinet-payment-gateway-cleave',
             EPG_PLUGIN_URL . 'js/cleave.min.js',
             array( 'jquery' ),
             EPG_PLUGIN_VERSION,
@@ -196,7 +196,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
     public function payment_fields() {
 
         if ( $this->description ) { 
-            echo wpautop( wp_kses_post( $this->description ) );
+            echo wp_kses_post( wpautop( $this->description ) );
         }
         
         ?>
@@ -208,19 +208,23 @@ class ExpinetGateway extends \WC_Payment_Gateway {
             <!-- Card Number -->
             <div class="form-row form-row-wide validate-required">
                 <label for="card_number">
-                    <?php esc_html_e( 'Card Number', 'epg' ); ?> <span class="required">*</span>
+                    <?php esc_html_e( 'Card Number', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
                 </label>
                 <input 
                     id="card_number" 
                     type="text" 
                     name="card_number" 
-                    placeholder="<?php esc_attr_e( 'Enter credit card number', 'epg' ); ?>" 
+                    placeholder="<?php esc_attr_e( 'Enter credit card number', 'expinet-payment-gateway' ); ?>" 
                     autocomplete="off"
                 />
                 <div class="form-control1 card_thumbs pl-3">
+                    <!-- phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -->
                     <img alt="Visa" data-type="visa" src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/visa.png' ); ?>" />
+                    <!-- phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -->
                     <img alt="Master Card" data-type="mastercard" src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/master_card.png' ); ?>" />
+                    <!-- phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -->
                     <img alt="Discover" data-type="discover" src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/discover.png' ); ?>" />
+                    <!-- phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -->
                     <img alt="American Express" data-type="amex" src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/american_express.png' ); ?>" />
                 </div>
             </div>
@@ -229,13 +233,13 @@ class ExpinetGateway extends \WC_Payment_Gateway {
             <div class="expinet-row form-row form-row-wide validate-required pd-0">
                 <div class="expinet-col-6">
                     <label for="expiry_date">
-                        <?php esc_html_e( 'Expiry Date', 'epg' ); ?> <span class="required">*</span>
+                        <?php esc_html_e( 'Expiry Date', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
                     </label>
                     <input 
                         id="expiry_date" 
                         type="text" 
                         name="expiry_date" 
-                        placeholder="<?php esc_attr_e( 'MM/YY', 'epg' ); ?>" 
+                        placeholder="<?php esc_attr_e( 'MM/YY', 'expinet-payment-gateway' ); ?>" 
                         autocomplete="off" 
                         maxlength="5"
                     />
@@ -243,11 +247,12 @@ class ExpinetGateway extends \WC_Payment_Gateway {
 
                 <div class="expinet-col-6">
                     <label for="ccv">
-                        <?php esc_html_e( 'Secure Code (cvv)', 'epg' ); ?> <span class="required">*</span>
+                        <?php esc_html_e( 'Secure Code (cvv)', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
                         <span class="help_info" tabindex="0" role="tooltip">
+                            <!-- phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -->
                             <img src="<?php echo esc_url( EPG_PLUGIN_URL . 'images/question-icons.png' ); ?>" alt="Help" />
                             <p>
-                                <?php esc_html_e( 'The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code. Providing your CVV number to an online merchant proves that you actually have the physical credit or debit card - and helps to keep you safe while reducing fraud.', 'epg' ); ?>
+                                <?php esc_html_e( 'The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code. Providing your CVV number to an online merchant proves that you actually have the physical credit or debit card - and helps to keep you safe while reducing fraud.', 'expinet-payment-gateway' ); ?>
                             </p>
                         </span>
                     </label>
@@ -255,7 +260,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
                         id="ccv" 
                         class="form-control" 
                         name="ccv" 
-                        placeholder="<?php esc_attr_e( '000/0000', 'epg' ); ?>" 
+                        placeholder="<?php esc_attr_e( '000/0000', 'expinet-payment-gateway' ); ?>" 
                         type="text" 
                         maxlength="4"
                     />
@@ -265,17 +270,17 @@ class ExpinetGateway extends \WC_Payment_Gateway {
             <!-- Card Name -->
             <div class="form-row form-row-wide validate-required">
                 <label for="cardName">
-                    <?php esc_html_e( 'Name on card', 'epg' ); ?> <span class="required">*</span>
+                    <?php esc_html_e( 'Name on card', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
                 </label>
                 <input 
                     id="cardName"
                     name="cardName" 
-                    placeholder="<?php esc_attr_e( 'Name on card', 'epg' ); ?>" 
+                    placeholder="<?php esc_attr_e( 'Name on card', 'expinet-payment-gateway' ); ?>" 
                     type="text" 
                     required
                 />
             </div>
-
+            <?php wp_nonce_field( 'expinet_payment_process', 'expinet_payment_nonce' ); ?>
             <?php do_action( 'woocommerce_credit_card_form_end', $this->id ); ?>
 
         </fieldset>
@@ -287,43 +292,47 @@ class ExpinetGateway extends \WC_Payment_Gateway {
     public function validate_fields(){
            
         $error = false;
-
+        if ( ! isset( $_POST['expinet_payment_nonce'] ) || 
+             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['expinet_payment_nonce'] ) ), 'expinet_payment_process' ) ) {
+            wc_add_notice( __( 'Payment validation failed. Please try again.', 'expinet-payment-gateway' ), 'error' );
+            return false;
+        }
         // Sanitize and validate card number
         if ( empty( $_POST['card_number'] ) ) {
-            wc_add_notice( __( 'Card Number is required!', 'epg' ), 'error' );
+            wc_add_notice( __( 'Card Number is required!', 'expinet-payment-gateway' ), 'error' );
             $error = true;
         } else {
-            $card_number = preg_replace( '/\s+/', '', sanitize_text_field( $_POST['card_number'] ) );
+            $card_number = preg_replace( '/\s+/', '', sanitize_text_field( wp_unslash( $_POST['card_number'] ) ) );
             $first_six   = substr( $card_number, 0, 6 );
 
             if ( false === get_transient( 'card_' . $first_six ) ) {
                 set_transient( 'card_' . $first_six, $first_six, MINUTE_IN_SECONDS );
             } else {
-                wc_add_notice( __( 'Please try again after some time. If still having issues, please contact us.', 'epg' ), 'error' );
+                wc_add_notice( __( 'Please try again after some time. If still having issues, please contact us.', 'expinet-payment-gateway' ), 'error' );
                 $error = true;
             }
         }
 
         // Validate expiry date
         if ( empty( $_POST['expiry_date'] ) ) {
-            wc_add_notice( __( 'Expiry Date is required!', 'epg' ), 'error' );
+            wc_add_notice( __( 'Expiry Date is required!', 'expinet-payment-gateway' ), 'error' );
             $error = true;
         } else {
-            $expiry_date = sanitize_text_field( $_POST['expiry_date'] );
+            $expiry_date = sanitize_text_field( wp_unslash( $_POST['expiry_date'] ) );
             $expiry_parts = explode( '/', $expiry_date );
 
             if ( count( $expiry_parts ) !== 2 ) {
-                wc_add_notice( __( 'Invalid expiry date format. Use MM/YY.', 'epg' ), 'error' );
+                wc_add_notice( __( 'Invalid expiry date format. Use MM/YY.', 'expinet-payment-gateway' ), 'error' );
                 $error = true;
             } else {
                 $passMonth = (int) $expiry_parts[0];
                 $passYear  = (int) $expiry_parts[1];
 
-                $currentMonth = (int) date( 'm' );
-                $currentYear  = (int) date( 'y' );
+                $currentMonth = (int) gmdate( 'm' );
+                $currentYear  = (int) gmdate( 'y' );
 
                 if ( $passYear < $currentYear || ( $passYear === $currentYear && $passMonth < $currentMonth ) ) {
-                    wc_add_notice( __( 'Your card is expired!', 'epg' ), 'error' );
+                    wc_add_notice( __( 'Your card is expired!', 'expinet-payment-gateway' ), 'error' );
                     $error = true;
                 }
             }
@@ -331,18 +340,18 @@ class ExpinetGateway extends \WC_Payment_Gateway {
 
         // Validate CVV
         if ( empty( $_POST['ccv'] ) ) {
-            wc_add_notice( __( 'CVV is required!', 'epg' ), 'error' );
+            wc_add_notice( __( 'CVV is required!', 'expinet-payment-gateway' ), 'error' );
             $error = true;
         }
 
         // Validate name on card
         if ( empty( $_POST['cardName'] ) ) {
-            wc_add_notice( __( 'Name on card is required!', 'epg' ), 'error' );
+            wc_add_notice( __( 'Name on card is required!', 'expinet-payment-gateway' ), 'error' );
             $error = true;
         } else {
-            $cardName = sanitize_text_field( $_POST['cardName'] );
+            $cardName = sanitize_text_field( wp_unslash( $_POST['cardName'] ) );
             if ( ! preg_match( '/^[A-Za-z ]+$/', $cardName ) ) {
-                wc_add_notice( __( 'Name on card must contain only letters.', 'epg' ), 'error' );
+                wc_add_notice( __( 'Name on card must contain only letters.', 'expinet-payment-gateway' ), 'error' );
                 $error = true;
             }
         }
@@ -359,11 +368,22 @@ class ExpinetGateway extends \WC_Payment_Gateway {
         global $woocommerce;
 
         $order = wc_get_order( $order_id );
+        if ( ! isset( $_POST['expinet_payment_nonce'] ) ||
+            ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['expinet_payment_nonce'] ) ), 'expinet_payment_process' ) ) {
+            wc_add_notice( __( 'Payment validation failed. Please try again.', 'expinet-payment-gateway' ), 'error' );
+            return false;
+        }
 
         // Sanitize input fields
-        $card_number = preg_replace( '/\s+/', '', sanitize_text_field( $_REQUEST['card_number'] ) );
-        $expiry_date = str_replace( '/', '', sanitize_text_field( $_REQUEST['expiry_date'] ) );
-        $name        = sanitize_text_field( $_REQUEST['cardName'] );
+        if ( isset( $_REQUEST['card_number'] ) && ! empty( $_REQUEST['card_number'] ) ) {
+            $card_number = preg_replace( '/\s+/', '', sanitize_text_field( wp_unslash( $_REQUEST['card_number'] ) ) );
+        }
+        if ( isset( $_REQUEST['expiry_date'] ) && ! empty( $_REQUEST['expiry_date'] ) ) {
+            $expiry_date = str_replace( '/', '', sanitize_text_field( wp_unslash( $_REQUEST['expiry_date'] ) ) );
+        }
+        if ( isset( $_REQUEST['cardName'] ) && ! empty( $_REQUEST['cardName'] ) ) {
+            $name        = sanitize_text_field( wp_unslash( $_REQUEST['cardName'] ) );
+        }
         $shipping    = $order->get_shipping_total();
         $amount      = $order->get_total();
 
@@ -387,7 +407,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
         // Handle insufficient balance error
         if ( isset( $response['data']['transaction']['reason_code_id'] ) && $response['data']['transaction']['reason_code_id'] == 1201 ) {
             $response['status']                             = "error";
-            $response["data"]['errors']['account_number'][0] = __( 'Insufficient Balance.', 'epg' );
+            $response["data"]['errors']['account_number'][0] = __( 'Insufficient Balance.', 'expinet-payment-gateway' );
         }
 
         if ( $response['status'] === "success" && empty( $response['data']['errors'] ) ) {
@@ -400,7 +420,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
             $enable_order_download = get_option( 'enable_order_download' );
 
             // Add order notes and metadata
-            $order->add_order_note( __( 'Transaction ID: ', 'epg' ) . $response['data']['transaction']['id'] );
+            $order->add_order_note( __( 'Transaction ID: ', 'expinet-payment-gateway' ) . $response['data']['transaction']['id'] );
             $order->update_meta_data( '_transaction_id', $response['data']['transaction']['id'] );
             $order->update_meta_data( 'expinet_data', $response['data']['transaction'] );
             $order->save();
@@ -429,7 +449,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
                     }
                 }
             } else {
-                $msg[] = __( 'Transaction failed. Please try again.', 'epg' );
+                $msg[] = __( 'Transaction failed. Please try again.', 'expinet-payment-gateway' );
             }
 
             wc_add_notice( implode( "\n", $msg ), 'error' );
@@ -440,58 +460,57 @@ class ExpinetGateway extends \WC_Payment_Gateway {
     public function apiCall( $endPoint = '', $request = array(), $order_id, $method = 'POST' ) {
         global $wpdb;
 
-        // Build full URL
+        // Build full API URL
         $domain = trailingslashit( $this->expinet_domain ) . $this->apiVersion . '/' . ltrim( $endPoint, '/' );
+
         $requestLog = [
             'url'     => esc_url_raw( $domain ),
             'request' => json_decode( $request, true ),
         ];
 
-        $curl = curl_init();
-        curl_setopt_array( $curl, array(
-            CURLOPT_URL            => $domain,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING       => "",
-            CURLOPT_MAXREDIRS      => 10,
-            CURLOPT_TIMEOUT        => 150,
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST  => $method,
-            CURLOPT_POSTFIELDS     => $request,
-            CURLOPT_HTTPHEADER     => array(
-                "Content-Type: application/json",
-                "cache-control: no-cache",
-                "developer-id: {$this->expinet_developer_id}",
-                "user-api-key: {$this->expinet_user_api_key}",
-                "user-id: {$this->expinet_user_id}"
-            )
-        ));
+        // Prepare headers
+        $headers = [
+            'Content-Type'   => 'application/json',
+            'Cache-Control'  => 'no-cache',
+            'developer-id'   => $this->expinet_developer_id,
+            'user-api-key'   => $this->expinet_user_api_key,
+            'user-id'        => $this->expinet_user_id,
+        ];
 
-        $response    = curl_exec( $curl );
-        $errormsg    = curl_error( $curl );
-        $errorCode   = curl_errno( $curl );
-        $results     = [];
+        // Send remote request
+        $response = wp_remote_request( $domain, [
+            'method'  => $method,
+            'headers' => $headers,
+            'timeout' => 150,
+            'body'    => $request,
+        ] );
 
-        if ( $errormsg ) {
+        $results = [];
+
+        // Handle error
+        if ( is_wp_error( $response ) ) {
+            $error_message = $response->get_error_message();
             $results = [
                 'status'       => 'error',
-                'data'         => $errormsg,
-                'errorcodetxt' => $errormsg,
+                'data'         => $error_message,
+                'errorcodetxt' => $error_message,
             ];
             $results = $this->handleResponse( wp_json_encode( $results ) );
 
-            if ( isset( $results['valid'] ) && $results['valid'] === "fail" ) {
+            if ( isset( $results['valid'] ) && $results['valid'] === 'fail' ) {
                 $results['status'] = 'success';
                 $epoint = ( $endPoint === 'transactions' ) ? 'transaction' : 'routertransaction';
                 $results['data'][ $epoint ]['configuration_id'] = $results['errorcode'];
             }
         } else {
-            $handleSuccessRes = $this->handleResponse( $response );
+            $body = wp_remote_retrieve_body( $response );
+            $handleSuccessRes = $this->handleResponse( $body );
 
-            if ( isset( $handleSuccessRes['valid'] ) && $handleSuccessRes['valid'] === "success" ) {
+            if ( isset( $handleSuccessRes['valid'] ) && $handleSuccessRes['valid'] === 'success' ) {
                 $results['status'] = 'success';
-                $results['data']   = json_decode( $response, true );
+                $results['data']   = json_decode( $body, true );
 
-                $epoint = ( $endPoint === 'transactions' ) ? 'transaction' : 'routertransaction';
+                $epoint     = ( $endPoint === 'transactions' ) ? 'transaction' : 'routertransaction';
                 $resPartial = $this->checkIfPartialPaymentAndVoid( $results['data'], $epoint, $order_id );
 
                 if ( $resPartial ) {
@@ -500,12 +519,12 @@ class ExpinetGateway extends \WC_Payment_Gateway {
                 }
             } else {
                 $results['status'] = 'success';
-                $results['data']   = json_decode( $response, true );
+                $results['data']   = json_decode( $body, true );
 
                 if ( ! isset( $results['data']['errors'] ) ) {
-                    $results['data']['errors']['account_number'] = array(
-                        __( 'Transaction Declined.', 'epg' )
-                    );
+                    $results['data']['errors']['account_number'] = [
+                        __( 'Transaction Declined.', 'expinet-payment-gateway' ),
+                    ];
                 }
 
                 $epoint = ( $endPoint === 'transactions' ) ? 'transaction' : 'routertransaction';
@@ -513,17 +532,17 @@ class ExpinetGateway extends \WC_Payment_Gateway {
             }
         }
 
-        curl_close( $curl );
-
-        // Save API logs in custom table
+        // Log data
         $table_name = $wpdb->prefix . 'expinent_api_data';
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->insert(
             $table_name,
-            array(
+            [
                 'order_id'     => intval( $order_id ),
                 'api_request'  => serialize( $this->encodeSensitiveData( $requestLog ) ),
                 'api_response' => serialize( $results['data'] ),
-            )
+            ]
         );
 
         $results['request'] = $requestLog;
@@ -603,7 +622,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
         if ( empty( $request['transactions_id'] ) ) {
             return array(
                 'status' => 'error',
-                'message' => __( 'Transaction ID is missing.', 'epg' ),
+                'message' => __( 'Transaction ID is missing.', 'expinet-payment-gateway' ),
             );
         }
 
@@ -710,7 +729,7 @@ class ExpinetGateway extends \WC_Payment_Gateway {
         if ( empty( $request['transactions_id'] ) || empty( $request['transaction_amount'] ) ) {
             return array(
                 'status' => false,
-                'msg'    => __( 'Missing transaction details.', 'epg' )
+                'msg'    => __( 'Missing transaction details.', 'expinet-payment-gateway' )
             );
         }
 

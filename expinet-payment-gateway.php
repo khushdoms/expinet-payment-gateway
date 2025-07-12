@@ -4,8 +4,10 @@
  * Description: Credit card payments gateway to accept the payment on your WooCommerce store.
  * Author: Kaushik Domadiya
  * Author URI: https://kaushikdomadiya.live
- * Version: 1.0
- * Text Domain: epg
+ * Version: 1.0.0
+ * Text Domain: expinet-payment-gateway
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -51,3 +53,28 @@ function expinet_initialize_gateway() {
         });
     }
 }
+
+// Expinet logs WP table Admin Custom Styles
+function expinet_admin_custom_styles() {
+    echo '<style>
+        .wp-list-table .column-api_date { width: 150px; }
+        .wp-list-table .column-order_id { width: 100px; }
+        .wp-list-table .column-api_request,
+        .wp-list-table .column-api_response { width: 450px; }
+        .wp-list-table .column-api_request pre,
+        .wp-list-table .column-api_response pre {
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            background: #f8f8f8;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .wp-list-table tbody tr:hover {
+            background-color: #f5f7fa;
+        }
+    </style>';
+}
+add_action( 'admin_head', 'expinet_admin_custom_styles' );
