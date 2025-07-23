@@ -1,0 +1,28 @@
+.wp-list-table .column-api_date {
+    width: 150px;
+}
+
+.wp-list-table .column-order_id {
+    width: 100px;
+}
+
+.wp-list-table .column-api_request,
+.wp-list-table .column-api_response {
+    width: 450px;
+}
+
+.wp-list-table .column-api_request pre,
+.wp-list-table .column-api_response pre {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #f8f8f8;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.wp-list-table tbody tr:hover {
+    background-color: #f5f7fa;
+}

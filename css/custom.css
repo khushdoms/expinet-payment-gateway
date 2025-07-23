@@ -1,0 +1,105 @@
+#wc-expinet-cc-form .expinet-row {
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 1rem;
+}
+#wc-expinet-cc-form .expinet-col-6{
+	flex: 1;
+}
+#wc-expinet-cc-form .help_info {
+    font-size: 12px;
+    text-align: right;
+    cursor: default;
+    display: inline-block;
+    position: relative;
+	font-weight: bold;
+}
+#wc-expinet-cc-form .help_info p {
+    display: none;
+    text-align: left;
+    background-color: #3293af;
+    padding: 20px;
+    width: 330px;
+    position: absolute;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
+    left: -10px;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+    z-index: 1;
+    cursor: text;
+	font-weight: normal;
+}
+#wc-expinet-cc-form .help_info p:before{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-bottom-color: #3293af;
+    top: -12px;
+    left: 10px;
+}
+#wc-expinet-cc-form .help_info img{
+	width: 12px;
+	margin-left: 0 !important;
+    margin-right: 5px !important;
+}
+
+#wc-expinet-cc-form input[name=expipaga_cardnumber]{
+    margin-bottom: 10px !important;
+}
+
+#wc-expinet-cc-form .card_thumbs img.active {
+    border: 2px solid #1e73be;
+}
+
+#wc-expinet-cc-form .form-row{
+    margin-bottom: 10px !important;
+    padding-bottom: 0px !important;
+}
+#wc-expinet-cc-form .expinet-col-6{
+	padding-left: 15px;
+    padding-right: 15px;
+}
+#wc-expinet-cc-form .expinet-col-6:first-child{
+    padding-left: 0px;
+}
+#wc-expinet-cc-form .expinet-col-6:last-child{
+    padding-right: 0px;
+}
+
+.checkout.woocommerce-checkout #wc-expinet-cc-form .form-row label span{
+    margin-left: 0px;
+}
+#wc-expinet-cc-form input{
+    border: 1px solid #d0d0d0;
+    color: #a1a1a1;
+    height: 50px;
+    padding: 0 10px 0 20px;
+    width: 100%;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+@media only screen and (max-width: 767px) {
+   
+}
+
+@media only screen and (max-width: 480px) {
+	#wc-expinet-cc-form .expinet-col-6{
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+    .woocommerce-checkout #payment ul.payment_methods {
+        padding: 0 !important;
+    }
+    #add_payment_method #payment div.form-row, .woocommerce-cart #payment div.form-row, .woocommerce-checkout #payment div.form-row{
+        padding: 0 10px !important;
+    }
+}
