@@ -10,6 +10,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
+    public $test_mode;
+    public $api_key;
+    public $merchant_id;
+    public $api_url;
+    public $enabled_hold;
+    public $expinet_domain;
+    public $expinet_location_id;
+    public $expinet_developer_id;
+    public $expinet_service_id;
+    public $expinet_user_api_key;
+    public $expinet_user_id;
+    public $expinet_user_hash_key;
+    public $apiVersion;
     /**
      * Constructor
      */
@@ -402,7 +415,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         $request            = wp_json_encode( $req );
 
         $endPoint = 'transactions';
-        $response = $this->apiCall( $endPoint, $request, $order_id );
+        $response = $this->apiCall( $order_id, $endPoint, $request );
 
         // Handle insufficient balance error
         if ( isset( $response['data']['transaction']['reason_code_id'] ) && $response['data']['transaction']['reason_code_id'] == 1201 ) {
@@ -457,7 +470,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         }
     }
 
-    public function apiCall( $endPoint = '', $request = array(), $order_id, $method = 'POST' ) {
+    public function apiCall( $order_id, $endPoint = '', $request = array(), $method = 'POST' ) {
         global $wpdb;
 
         // Build full API URL
@@ -637,7 +650,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         $void_request_json = wp_json_encode( $api_request );
 
         // Make the API call
-        $response = $this->apiCall( $endpoint, $void_request_json, $order_id, 'PUT' );
+        $response = $this->apiCall( $order_id, $endpoint, $void_request_json, 'PUT' );
 
         return $response;
     }
@@ -742,7 +755,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
         $authcomplete_request = json_encode( array( 'transaction' => $api_request ) );
 
-        $response = $this->apiCall( $endPoint, $authcomplete_request, $order_id, 'PUT' );
+        $response = $this->apiCall( $order_id, $endPoint, $authcomplete_request, 'PUT' );
 
         if ( isset( $response['status'] ) && $response['status'] === 'success' && empty( $response['data']['errors'] ) ) {
             return array(
