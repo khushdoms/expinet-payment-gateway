@@ -305,8 +305,8 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             $expipaga_cardnumber = preg_replace( '/\s+/', '', sanitize_text_field( wp_unslash( $_POST['expipaga_cardnumber'] ) ) );
             $first_six   = substr( $expipaga_cardnumber, 0, 6 );
 
-            if ( false === get_transient( 'card_' . $first_six ) ) {
-                set_transient( 'card_' . $first_six, $first_six, MINUTE_IN_SECONDS );
+            if ( false === get_transient( 'expipaga_card_' . $first_six ) ) {
+                set_transient( 'expipaga_card_' . $first_six, $first_six, MINUTE_IN_SECONDS );
             } else {
                 wc_add_notice( __( 'Please try again after some time. If still having issues, please contact us.', 'expinet-payment-gateway' ), 'error' );
                 $error = true;

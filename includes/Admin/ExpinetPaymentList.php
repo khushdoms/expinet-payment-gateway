@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 if(!class_exists('WP_List_Table')){
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
@@ -42,43 +47,44 @@ class EXPIPAGA_Log extends WP_List_Table {
 		}
 
 		// Whitelist orderby and order
-		$allowed_orderby = [ 'order_id', 'api_date' ];
-		$order_by        = 'api_date';
+		$allowed_orderby = [ 
+			'order_id' => 'order_id', 
+			'api_date' => 'api_date' 
+		];
+		$order_by = 'api_date'; 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
 			$orderby_input = sanitize_key( wp_unslash( $_REQUEST['orderby'] ) );
-			if ( in_array( $orderby_input, $allowed_orderby, true ) ) {
-				$order_by = $orderby_input;
+			if ( array_key_exists( $orderby_input, $allowed_orderby ) ) {
+				$order_by = $allowed_orderby[ $orderby_input ];
 			}
 		}
 
-		$order = 'DESC';
+		// Validate order direction
+		$order = 'DESC'; // default
 		if ( ! empty( $_REQUEST['order'] ) ) {
-			if ( isset( $_REQUEST['order'] ) ) {
-				$order_value = strtolower( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) );
-			}
-			if ( in_array( $order_input, [ 'asc', 'desc' ], true ) ) {
-				$order = strtoupper( $order_input );
+			$order_value = strtolower( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) );
+			if ( 'asc' === $order_value ) {
+				$order = 'ASC';
 			}
 		}
 
 		// Pagination
 		$offset = ( $page_number - 1 ) * $per_page;
-		$params[] = (int) $per_page;
-		$params[] = (int) $offset;
 
-		// Final query string
-		$sql = "
-			SELECT *
-			FROM {$table_name}
-			{$where_sql}
-			ORDER BY {$order_by} {$order}
-			LIMIT %d OFFSET %d
-		";
+		// Build the complete SQL with whitelisted values
+		// Since ORDER BY cannot use placeholders, we validate against whitelist above
+		$sql = $wpdb->prepare(
+			"SELECT * 
+			FROM {$table_name} 
+			{$where_sql} 
+			ORDER BY {$order_by} {$order} 
+			LIMIT %d OFFSET %d",
+			array_merge( $params, [ (int) $per_page, (int) $offset ] )
+		);
 
-		// Return the result directly from prepare()
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- SQL is safely constructed with whitelisted values
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		return $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A ); 
+		return $wpdb->get_results( $sql, ARRAY_A );
 	}
 
 	/**
