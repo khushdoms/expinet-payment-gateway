@@ -193,7 +193,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             true
         );
 
-        // Enqueue Cleave.js 
+        // Enqueue Vanilla Masker.js for input formatting
         wp_enqueue_script(
             'expinet-payment-gateway-vanilla-masker',
             EXPIPAGA_PLUGIN_URL . 'js/vanilla-masker.min.js',

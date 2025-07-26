@@ -22,7 +22,7 @@ Expinet Payment Gateway is a WooCommerce payment plugin that allows you to secur
   - Credit card only payments
   - Gift card only payments
   - Split payments (Gift card + Credit card)
-- Uses Cleave.js for card input formatting
+- Uses Vanilla-Masker for card input formatting
 - Transaction logging system — view API request/response logs from the admin
 - Custom admin log page under **WooCommerce → Expinent Payment Log**
 - Loads custom CSS and JS assets only on checkout page
@@ -39,6 +39,12 @@ This plugin currently works exclusively on the WooCommerce checkout page and is 
 4. Enable **Expinet Payment Gateway**.
 5. Configure your Expinet API credentials and other settings.
 6. Test and go live.
+
+== Source Code ==
+
+This plugin uses the [Vanilla Masker](https://github.com/BankFacil/vanilla-masker) JavaScript library (v1.1.1). The original uncompressed source file is included in the `/js/` folder for review.
+
+Build tools or minification methods are not used in this plugin. Only vanilla JavaScript is included.
 
 == Frequently Asked Questions ==
 
@@ -71,7 +77,7 @@ Yes — tested up to WordPress 6.5 and WooCommerce 8.9.
 = 1.0.0 =
 * Initial stable release
 * Added credit card payment form on checkout
-* Integrated Cleave.js for input formatting
+* Integrated vanilla-masker.min.js for input formatting
 * Added custom admin payment log page
 * Supports gift card and split payment scenarios
 
