@@ -5,6 +5,8 @@
  * Author: Kaushik Domadiya
  * Author URI: https://kaushikdomadiya.live
  * Version: 1.0.0
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
  * Text Domain: expinet-payment-gateway
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
