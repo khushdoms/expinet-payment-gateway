@@ -1,5 +1,5 @@
 <?php
-namespace ExpinetPaymentGateway;
+namespace ExpinetGatewayforWoocommerce;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
