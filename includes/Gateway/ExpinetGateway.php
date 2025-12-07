@@ -29,8 +29,8 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
     public function __construct() {
         $this->id                 = 'expinet';
         $this->icon               = ''; // Optional: URL to payment method icon
-        $this->method_title       = __( 'Expinet Payment', 'expinet-payment-gateway' );
-        $this->method_description = __( 'Secure credit card payments via Expinet API.', 'expinet-payment-gateway' );
+        $this->method_title       = __( 'Expinet Payment', 'payment-gateway-expinet-and-woocommerce-integration' );
+        $this->method_description = __( 'Secure credit card payments via Expinet API.', 'payment-gateway-expinet-and-woocommerce-integration' );
         $this->has_fields         = true;
 
         $enable_order_refund = get_option( 'enable_order_refund' );
@@ -80,81 +80,81 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title'       => __( 'Enable/Disable', 'expinet-payment-gateway' ),
-                'label'       => __( 'Enable Expinet Gateway', 'expinet-payment-gateway' ),
+                'title'       => __( 'Enable/Disable', 'payment-gateway-expinet-and-woocommerce-integration' ),
+                'label'       => __( 'Enable Expinet Gateway', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'checkbox',
-                'description' => __( 'Enable the Expinet gateway to accept payments via credit card.', 'expinet-payment-gateway' ),
+                'description' => __( 'Enable the Expinet gateway to accept payments via credit card.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => 'no',
                 'desc_tip'    => true,
             ),
             'enabled_hold' => array(
-                'title'       => __( 'Enable Payment Hold', 'expinet-payment-gateway' ),
-                'label'       => __( 'Allow payment to be placed on hold.', 'expinet-payment-gateway' ),
+                'title'       => __( 'Enable Payment Hold', 'payment-gateway-expinet-and-woocommerce-integration' ),
+                'label'       => __( 'Allow payment to be placed on hold.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'checkbox',
-                'description' => __( 'Enable this option to authorize credit card payments without capturing them immediately.', 'expinet-payment-gateway' ),
+                'description' => __( 'Enable this option to authorize credit card payments without capturing them immediately.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => 'no',
                 'desc_tip'    => true,
             ),
             'title' => array(
-                'title'       => __( 'Title', 'expinet-payment-gateway' ),
+                'title'       => __( 'Title', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Controls the payment method title shown to customers during checkout.', 'expinet-payment-gateway' ),
-                'default'     => __( 'Credit Card', 'expinet-payment-gateway' ),
+                'description' => __( 'Controls the payment method title shown to customers during checkout.', 'payment-gateway-expinet-and-woocommerce-integration' ),
+                'default'     => __( 'Credit Card', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'desc_tip'    => true,
             ),
             'description' => array(
-                'title'       => __( 'Description', 'expinet-payment-gateway' ),
+                'title'       => __( 'Description', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'textarea',
-                'description' => __( 'Controls the payment method description shown to customers during checkout.', 'expinet-payment-gateway' ),
-                'default'     => __( 'Pay securely using your credit card via Expinet payment gateway.', 'expinet-payment-gateway' ),
+                'description' => __( 'Controls the payment method description shown to customers during checkout.', 'payment-gateway-expinet-and-woocommerce-integration' ),
+                'default'     => __( 'Pay securely using your credit card via Expinet payment gateway.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'desc_tip'    => true,
             ),
             'expinet_domain' => array(
-                'title'       => __( 'Expinet Domain', 'expinet-payment-gateway' ),
+                'title'       => __( 'Expinet Domain', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'The base domain URL for Expinet API requests.', 'expinet-payment-gateway' ),
+                'description' => __( 'The base domain URL for Expinet API requests.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => 'https://api.sandbox.expinet.net',
                 'desc_tip'    => true,
             ),
             'expinet_location_id' => array(
-                'title'       => __( 'Location/Merchant ID', 'expinet-payment-gateway' ),
+                'title'       => __( 'Location/Merchant ID', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet location or merchant ID.', 'expinet-payment-gateway' ),
+                'description' => __( 'Your Expinet location or merchant ID.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_developer_id' => array(
-                'title'       => __( 'Developer ID', 'expinet-payment-gateway' ),
+                'title'       => __( 'Developer ID', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet developer ID.', 'expinet-payment-gateway' ),
+                'description' => __( 'Your Expinet developer ID.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_service_id' => array(
-                'title'       => __( 'Service ID', 'expinet-payment-gateway' ),
+                'title'       => __( 'Service ID', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet service ID.', 'expinet-payment-gateway' ),
+                'description' => __( 'Your Expinet service ID.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_user_id' => array(
-                'title'       => __( 'User ID', 'expinet-payment-gateway' ),
+                'title'       => __( 'User ID', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet user ID.', 'expinet-payment-gateway' ),
+                'description' => __( 'Your Expinet user ID.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_user_api_key' => array(
-                'title'       => __( 'API Key', 'expinet-payment-gateway' ),
+                'title'       => __( 'API Key', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Your Expinet API key for authentication.', 'expinet-payment-gateway' ),
+                'description' => __( 'Your Expinet API key for authentication.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
             'expinet_user_hash_key' => array(
-                'title'       => __( 'User Hash Key', 'expinet-payment-gateway' ),
+                'title'       => __( 'User Hash Key', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'type'        => 'text',
-                'description' => __( 'Hash key used for verifying Expinet API requests.', 'expinet-payment-gateway' ),
+                'description' => __( 'Hash key used for verifying Expinet API requests.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                 'default'     => '',
                 'desc_tip'    => true,
             ),
@@ -178,7 +178,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
         // Enqueue custom stylesheet
         wp_enqueue_style(
-            'expinet-payment-gateway-custom',
+            'woocommerce-expinet-payment-gateway-custom',
             EXPIPAGA_PLUGIN_URL . 'css/custom.css',
             array(), // Dependencies
             EXPIPAGA_PLUGIN_VERSION,
@@ -186,7 +186,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
         // Enqueue custom JS
         wp_enqueue_script(
-            'expinet-payment-gateway-custom-js',
+            'woocommerce-expinet-payment-gateway-custom-js',
             EXPIPAGA_PLUGIN_URL . 'js/custom.js',
             array( 'jquery' ),
             EXPIPAGA_PLUGIN_VERSION,
@@ -195,7 +195,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
         // Enqueue Vanilla Masker.js for input formatting
         wp_enqueue_script(
-            'expinet-payment-gateway-vanilla-masker',
+            'woocommerce-expinet-payment-gateway-vanilla-masker',
             EXPIPAGA_PLUGIN_URL . 'js/vanilla-masker.min.js',
             array( 'jquery' ),
             EXPIPAGA_PLUGIN_VERSION,
@@ -221,13 +221,13 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             <!-- Card Number -->
             <div class="form-row form-row-wide validate-required">
                 <label for="expipaga_cardnumber">
-                    <?php esc_html_e( 'Card Number', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
+                    <?php esc_html_e( 'Card Number', 'payment-gateway-expinet-and-woocommerce-integration' ); ?> <span class="required">*</span>
                 </label>
                 <input 
                     id="expipaga_cardnumber" 
                     type="text" 
                     name="expipaga_cardnumber" 
-                    placeholder="<?php esc_attr_e( 'Enter credit card number', 'expinet-payment-gateway' ); ?>" 
+                    placeholder="<?php esc_attr_e( 'Enter credit card number', 'payment-gateway-expinet-and-woocommerce-integration' ); ?>" 
                     autocomplete="off"
                 />
                 <div class="form-control1 card_thumbs pl-3">
@@ -246,13 +246,13 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             <div class="expinet-row form-row form-row-wide validate-required pd-0">
                 <div class="expinet-col-6">
                     <label for="expipaga_expirydate">
-                        <?php esc_html_e( 'Expiry Date', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
+                        <?php esc_html_e( 'Expiry Date', 'payment-gateway-expinet-and-woocommerce-integration' ); ?> <span class="required">*</span>
                     </label>
                     <input 
                         id="expipaga_expirydate" 
                         type="text" 
                         name="expipaga_expirydate" 
-                        placeholder="<?php esc_attr_e( 'MM/YY', 'expinet-payment-gateway' ); ?>" 
+                        placeholder="<?php esc_attr_e( 'MM/YY', 'payment-gateway-expinet-and-woocommerce-integration' ); ?>" 
                         autocomplete="off" 
                         maxlength="5"
                     />
@@ -260,12 +260,12 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
                 <div class="expinet-col-6">
                     <label for="ccv">
-                        <?php esc_html_e( 'Secure Code (cvv)', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
+                        <?php esc_html_e( 'Secure Code (cvv)', 'payment-gateway-expinet-and-woocommerce-integration' ); ?> <span class="required">*</span>
                         <span class="help_info" tabindex="0" role="tooltip">
                             <!-- phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage -->
                             <img src="<?php echo esc_url( EXPIPAGA_PLUGIN_URL . 'images/question-icons.png' ); ?>" alt="Help" />
                             <p>
-                                <?php esc_html_e( 'The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code. Providing your CVV number to an online merchant proves that you actually have the physical credit or debit card - and helps to keep you safe while reducing fraud.', 'expinet-payment-gateway' ); ?>
+                                <?php esc_html_e( 'The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA®, MasterCard® and Discover® branded credit and debit cards. On your American Express® branded credit or debit card it is a 4 digit numeric code. Providing your CVV number to an online merchant proves that you actually have the physical credit or debit card - and helps to keep you safe while reducing fraud.', 'payment-gateway-expinet-and-woocommerce-integration' ); ?>
                             </p>
                         </span>
                     </label>
@@ -273,7 +273,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
                         id="ccv" 
                         class="form-control" 
                         name="ccv" 
-                        placeholder="<?php esc_attr_e( '000/0000', 'expinet-payment-gateway' ); ?>" 
+                        placeholder="<?php esc_attr_e( '000/0000', 'payment-gateway-expinet-and-woocommerce-integration' ); ?>" 
                         type="text" 
                         maxlength="4"
                     />
@@ -283,12 +283,12 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             <!-- Card Name -->
             <div class="form-row form-row-wide validate-required">
                 <label for="expipaga_cardname">
-                    <?php esc_html_e( 'Name on card', 'expinet-payment-gateway' ); ?> <span class="required">*</span>
+                    <?php esc_html_e( 'Name on card', 'payment-gateway-expinet-and-woocommerce-integration' ); ?> <span class="required">*</span>
                 </label>
                 <input 
                     id="expipaga_cardname"
                     name="expipaga_cardname" 
-                    placeholder="<?php esc_attr_e( 'Name on card', 'expinet-payment-gateway' ); ?>" 
+                    placeholder="<?php esc_attr_e( 'Name on card', 'payment-gateway-expinet-and-woocommerce-integration' ); ?>" 
                     type="text" 
                     required
                 />
@@ -307,12 +307,12 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         $error = false;
         if ( ! isset( $_POST['expinet_payment_nonce'] ) || 
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['expinet_payment_nonce'] ) ), 'expinet_payment_process' ) ) {
-            wc_add_notice( __( 'Payment validation failed. Please try again.', 'expinet-payment-gateway' ), 'error' );
+            wc_add_notice( __( 'Payment validation failed. Please try again.', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
             return false;
         }
         // Sanitize and validate card number
         if ( empty( $_POST['expipaga_cardnumber'] ) ) {
-            wc_add_notice( __( 'Card Number is required!', 'expinet-payment-gateway' ), 'error' );
+            wc_add_notice( __( 'Card Number is required!', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
             $error = true;
         } else {
             $expipaga_cardnumber = preg_replace( '/\s+/', '', sanitize_text_field( wp_unslash( $_POST['expipaga_cardnumber'] ) ) );
@@ -321,21 +321,21 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             if ( false === get_transient( 'expipaga_card_' . $first_six ) ) {
                 set_transient( 'expipaga_card_' . $first_six, $first_six, MINUTE_IN_SECONDS );
             } else {
-                wc_add_notice( __( 'Please try again after some time. If still having issues, please contact us.', 'expinet-payment-gateway' ), 'error' );
+                wc_add_notice( __( 'Please try again after some time. If still having issues, please contact us.', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
                 $error = true;
             }
         }
 
         // Validate expiry date
         if ( empty( $_POST['expipaga_expirydate'] ) ) {
-            wc_add_notice( __( 'Expiry Date is required!', 'expinet-payment-gateway' ), 'error' );
+            wc_add_notice( __( 'Expiry Date is required!', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
             $error = true;
         } else {
             $expipaga_expirydate = sanitize_text_field( wp_unslash( $_POST['expipaga_expirydate'] ) );
             $expiry_parts = explode( '/', $expipaga_expirydate );
 
             if ( count( $expiry_parts ) !== 2 ) {
-                wc_add_notice( __( 'Invalid expiry date format. Use MM/YY.', 'expinet-payment-gateway' ), 'error' );
+                wc_add_notice( __( 'Invalid expiry date format. Use MM/YY.', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
                 $error = true;
             } else {
                 $passMonth = (int) $expiry_parts[0];
@@ -345,7 +345,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
                 $currentYear  = (int) gmdate( 'y' );
 
                 if ( $passYear < $currentYear || ( $passYear === $currentYear && $passMonth < $currentMonth ) ) {
-                    wc_add_notice( __( 'Your card is expired!', 'expinet-payment-gateway' ), 'error' );
+                    wc_add_notice( __( 'Your card is expired!', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
                     $error = true;
                 }
             }
@@ -353,18 +353,18 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
         // Validate CVV
         if ( empty( $_POST['ccv'] ) ) {
-            wc_add_notice( __( 'CVV is required!', 'expinet-payment-gateway' ), 'error' );
+            wc_add_notice( __( 'CVV is required!', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
             $error = true;
         }
 
         // Validate name on card
         if ( empty( $_POST['expipaga_cardname'] ) ) {
-            wc_add_notice( __( 'Name on card is required!', 'expinet-payment-gateway' ), 'error' );
+            wc_add_notice( __( 'Name on card is required!', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
             $error = true;
         } else {
             $expipaga_cardname = sanitize_text_field( wp_unslash( $_POST['expipaga_cardname'] ) );
             if ( ! preg_match( '/^[A-Za-z ]+$/', $expipaga_cardname ) ) {
-                wc_add_notice( __( 'Name on card must contain only letters.', 'expinet-payment-gateway' ), 'error' );
+                wc_add_notice( __( 'Name on card must contain only letters.', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
                 $error = true;
             }
         }
@@ -383,7 +383,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         $order = wc_get_order( $order_id );
         if ( ! isset( $_POST['expinet_payment_nonce'] ) ||
             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['expinet_payment_nonce'] ) ), 'expinet_payment_process' ) ) {
-            wc_add_notice( __( 'Payment validation failed. Please try again.', 'expinet-payment-gateway' ), 'error' );
+            wc_add_notice( __( 'Payment validation failed. Please try again.', 'payment-gateway-expinet-and-woocommerce-integration' ), 'error' );
             return false;
         }
 
@@ -420,7 +420,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         // Handle insufficient balance error
         if ( isset( $response['data']['transaction']['reason_code_id'] ) && $response['data']['transaction']['reason_code_id'] == 1201 ) {
             $response['status']                             = "error";
-            $response["data"]['errors']['account_number'][0] = __( 'Insufficient Balance.', 'expinet-payment-gateway' );
+            $response["data"]['errors']['account_number'][0] = __( 'Insufficient Balance.', 'payment-gateway-expinet-and-woocommerce-integration' );
         }
 
         if ( $response['status'] === "success" && empty( $response['data']['errors'] ) ) {
@@ -433,7 +433,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
             $enable_order_download = get_option( 'enable_order_download' );
 
             // Add order notes and metadata
-            $order->add_order_note( __( 'Transaction ID: ', 'expinet-payment-gateway' ) . $response['data']['transaction']['id'] );
+            $order->add_order_note( __( 'Transaction ID: ', 'payment-gateway-expinet-and-woocommerce-integration' ) . $response['data']['transaction']['id'] );
             $order->update_meta_data( '_transaction_id', $response['data']['transaction']['id'] );
             $order->update_meta_data( 'expinet_data', $response['data']['transaction'] );
             $order->save();
@@ -462,7 +462,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
                     }
                 }
             } else {
-                $msg[] = __( 'Transaction failed. Please try again.', 'expinet-payment-gateway' );
+                $msg[] = __( 'Transaction failed. Please try again.', 'payment-gateway-expinet-and-woocommerce-integration' );
             }
 
             wc_add_notice( implode( "\n", $msg ), 'error' );
@@ -536,7 +536,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
 
                 if ( ! isset( $results['data']['errors'] ) ) {
                     $results['data']['errors']['account_number'] = [
-                        __( 'Transaction Declined.', 'expinet-payment-gateway' ),
+                        __( 'Transaction Declined.', 'payment-gateway-expinet-and-woocommerce-integration' ),
                     ];
                 }
 
@@ -546,7 +546,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         }
 
         // Log data
-        $table_name = $wpdb->prefix . 'expinent_api_data';
+        $table_name = $wpdb->prefix . 'expinet_api_data';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->insert(
@@ -635,7 +635,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         if ( empty( $request['transactions_id'] ) ) {
             return array(
                 'status' => 'error',
-                'message' => __( 'Transaction ID is missing.', 'expinet-payment-gateway' ),
+                'message' => __( 'Transaction ID is missing.', 'payment-gateway-expinet-and-woocommerce-integration' ),
             );
         }
 
@@ -742,7 +742,7 @@ class EXPIPAGA_Gateway extends \WC_Payment_Gateway {
         if ( empty( $request['transactions_id'] ) || empty( $request['transaction_amount'] ) ) {
             return array(
                 'status' => false,
-                'msg'    => __( 'Missing transaction details.', 'expinet-payment-gateway' )
+                'msg'    => __( 'Missing transaction details.', 'payment-gateway-expinet-and-woocommerce-integration' )
             );
         }
 

@@ -1,5 +1,5 @@
 <?php
-namespace ExpinetPaymentGateway;
+namespace ExpinetGatewayforWoocommerce;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
@@ -17,7 +17,7 @@ class Activator {
         // Example: create custom table if needed
         global $wpdb;
 
-        $table_name = $wpdb->prefix . 'expinent_api_data';
+        $table_name = $wpdb->prefix . 'expinet_api_data';
         $charset_collate = $wpdb->get_charset_collate();
 
         $sql = "CREATE TABLE IF NOT EXISTS $table_name (
